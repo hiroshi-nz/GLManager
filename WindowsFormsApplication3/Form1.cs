@@ -39,6 +39,8 @@ namespace GLManager
         private void glControl1_Load(object sender, EventArgs e)
         {
             loaded = true;
+            Application.Idle += Application_Idle;
+            howLong.Start();
         }
 
         int FPSCounter = 0;
@@ -46,6 +48,15 @@ namespace GLManager
         double counter16ms = 0;
         double totalTimeElapsed = 0;
         int second = 0;
+
+
+        GLManager glManager = new GLManager();
+
+
+        GLUserInput glUserInput = new GLUserInput();
+        Mouse mouse = new Mouse();
+
+        FallingBody fallingBody = new FallingBody();
 
         void Application_Idle(object sender, EventArgs e)
         {
@@ -71,25 +82,28 @@ namespace GLManager
                 if (counter16ms > 16) //refresh rate 60hz
                 {
                     glManager.Render(glUserInput.UpdateLookAt());
+                    //fallingBody.Tick(glManager.world.robot);
+
                     counter16ms = 0;
                     FPSCounter++;
                 }
             }
         }
-
-        GLManager glManager = new GLManager();
-        GLUserInput glUserInput = new GLUserInput();
-        Mouse mouse = new Mouse();
+ 
 
         private void glControl1_Paint(object sender, PaintEventArgs e)
         {
             if (!loaded) return;
             glManager.Initialize(glControl1, glUserInput.lookAt);
+            //fallingBody.InitializeEverything();
+
         }
    
         private void glControl1_KeyDown(object sender, KeyEventArgs e)
         {
             Keyboard.KeyDown(glUserInput, e.KeyCode);
+            Keyboard.KeyDown(glManager.exampleObjectManager.objectManager, e.KeyCode);
+            //Keyboard.KeyDown(glManager.exampleObjectManager.objectManager.GetCurrentObject(), e.KeyCode);
             glManager.Render(glUserInput.UpdateLookAt());
         }
 
@@ -99,7 +113,7 @@ namespace GLManager
             {
                 //Cursor.Hide();
                 mouse.MouseMove(glUserInput, new Point(e.X, e.Y));
-                glManager.Render(glUserInput.UpdateLookAt());  
+                glManager.Render(glUserInput.UpdateLookAt());
             }
           
             if (e.Button == MouseButtons.Right)

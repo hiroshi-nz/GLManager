@@ -21,7 +21,7 @@ namespace GLManager
             fontObject.vbo.VertexTexture(5, 6, verbuff, texbuff);
             fontObject.shaders.MainShader("shaders/panelVertexShader.txt", "shaders/panelFragmentShader.txt");
             fontObject.vbo.LoadTexture("textures/font.png");//load texture separately
-            fontObject.objectParts.Add(new ObjectPart("font", new Vector3(0, 0, 0), 0f, 0, 400));
+            fontObject.objectParts.Add(new ObjectPart("font", new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0, 400));
         }
 
         public void Draw()

@@ -12,15 +12,15 @@ namespace GLManager
    
         public string uniformName;
         public Vector3 translationalOffset = new Vector3();//in order to rotate a part, at first move the rotational axis to 0 on the coordinates system.
-        public float rotationalAngle;
+        public Vector3 rotationalAngles;
         public int startLocation;
         public int endLocation;
 
-        public ObjectPart(string uniformName, Vector3 translationalOffset, float rotationalAngle, int startLocation, int endLocation)
+        public ObjectPart(string uniformName, Vector3 translationalOffset, Vector3 rotationalAngles, int startLocation, int endLocation)
         {
             this.uniformName = uniformName;
             this.translationalOffset = translationalOffset;
-            this.rotationalAngle = rotationalAngle;
+            this.rotationalAngles = rotationalAngles;
             this.startLocation = startLocation;
             this.endLocation = endLocation;
         }

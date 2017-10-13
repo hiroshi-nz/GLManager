@@ -8,6 +8,12 @@ using OpenTK;
 
 namespace GLManager
 {
+    /*
+     *This is user input for the view. 
+     * 
+     * 
+     */
+    
     class GLUserInput
     {
         public Matrix4d lookAt = new Matrix4d();

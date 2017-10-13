@@ -7,21 +7,21 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-
+/*
+ * Put everything in this class. This is the main class which need to be called every time.
+ *
+ *
+ */
 namespace GLManager
 {
     class GLManager
     {
 
         FontExample fontExample = new FontExample();
-        Example1 world = new Example1();
-
+        //public Example1 world = new Example1();
+        public ExampleObjectManager exampleObjectManager = new ExampleObjectManager();
         GLControl glControl = new GLControl();
 
-        public GLManager()
-        {
-            
-        }
 
         public void Initialize(GLControl glControl, Matrix4d lookat)
         {
@@ -33,9 +33,10 @@ namespace GLManager
             
             GL.Enable(EnableCap.DepthTest);
 
-            world.InitializeWorld();
+            //world.InitializeWorld();
+            exampleObjectManager.InitializeWorld();
             fontExample.InitializeFont();
-
+     
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             glControl.SwapBuffers();
 
@@ -51,9 +52,9 @@ namespace GLManager
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Color3(Color.White);
 
-            world.DrawWorld();
+            //world.DrawWorld();
             fontExample.Draw();
-
+            exampleObjectManager.DrawWorld();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.Flush();

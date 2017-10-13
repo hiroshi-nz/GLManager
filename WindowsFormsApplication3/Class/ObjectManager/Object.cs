@@ -13,25 +13,10 @@ namespace GLManager
         public VBO vbo = new VBO();
         public Shaders shaders = new Shaders();
         public List<ObjectPart> objectParts = new List<ObjectPart>();
-
+        public Vector3 location = new Vector3();//object location
+        public PrimitiveType primitiveType = new PrimitiveType();
 
         public void Draw()
-        {
-            UpdateUniform();
-            
-            GL.UseProgram(shaders.programID);
-            GL.EnableVertexAttribArray(vbo.vertexIndex);
-            GL.EnableVertexAttribArray(vbo.textureIndex);
-            foreach (ObjectPart objectPart in objectParts)
-            {
-                GL.DrawArrays(PrimitiveType.Triangles, objectPart.startLocation, objectPart.endLocation);
-            }
-            GL.UseProgram(shaders.programID);
-            GL.DisableVertexAttribArray(vbo.vertexIndex);
-            GL.DisableVertexAttribArray(vbo.textureIndex);
-        }
-
-        public void Draw(PrimitiveType primitiveType)
         {
             UpdateUniform();
 
@@ -60,10 +45,30 @@ namespace GLManager
         {
             foreach(ObjectPart objectPart in objectParts)
             {
+                //for translational offset
                 GL.UseProgram(shaders.programID);
                 GL.Uniform3(GL.GetUniformLocation(shaders.programID, objectPart.uniformName), objectPart.translationalOffset);
+                //for rotational angles
+                GL.UseProgram(shaders.programID);
+                GL.Uniform3(GL.GetUniformLocation(shaders.programID, objectPart.uniformName + "RotationalAngles"), objectPart.rotationalAngles);
+                //for objectLocation
+                GL.UseProgram(shaders.programID);
+                GL.Uniform3(GL.GetUniformLocation(shaders.programID, "objectLocation"), location);
             }
 
+        }
+
+        public void MoveX(float delta)
+        {
+            location.X += delta;
+        }
+        public void MoveY(float delta)
+        {
+            location.Y += delta;
+        }
+        public void MoveZ(float delta)
+        {
+            location.Z += delta;
         }
     }
 }
