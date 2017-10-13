@@ -15,23 +15,26 @@ namespace GLManager
         public Object robot = new Object();
         public Object environment = new Object();
         public Object box = new Object();
-        //FallingBody fallingBody = new FallingBody();
+        public Object box2 = new Object();
+        FallingBody fallingBody = new FallingBody();
 
         public void InitializeWorld()
         {
             InitializeRobot();
             InitializeEnvironment();
             InitializeBox();
+            InitializeBox(box2, new Vector3(0, 10, 0));
 
             objectManager.AddObject(robot);
             objectManager.AddObject(environment);
             objectManager.AddObject(box);
-            //fallingBody.InitializeEverything();
+            objectManager.AddObject(box2);
+            fallingBody.InitializeEverything();
         }
 
         public void DrawWorld()
         {
-            //fallingBody.Tick();
+            fallingBody.Tick();
             UseTextures();
             objectManager.DrawAll();
         }
@@ -74,6 +77,16 @@ namespace GLManager
             box.objectParts.Add(new ObjectPart("box", new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0, 24));// If I want to add ceiling, add 400
         }
 
+        private void InitializeBox(Object anObject, Vector3 location)
+        {
+            anObject.primitiveType = PrimitiveType.Quads;
+            anObject.location = location;
+            anObject.vbo.VertexTexture(2, 3, Box.vertexArray, Box.textureArray2);
+            anObject.vbo.LoadTexture("textures/all.png");
+            anObject.shaders.MainShader("shaders/BoxVertexShader.txt", "shaders/BoxFragmentShader.txt");
+            anObject.objectParts.Add(new ObjectPart("box", new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0, 24));// If I want to add ceiling, add 400
+        }
+
         public void UseTextures()
         {
             //-------------multiple textures-----------------------------------
@@ -82,6 +95,7 @@ namespace GLManager
             robot.UseTexture("catTexture", TextureUnit.Texture0, 0);//same as TextureUnit but in numeric.
             environment.UseTexture("cubeTexture", TextureUnit.Texture2, 2);
             box.UseTexture("cubeTexture", TextureUnit.Texture2, 2);
+            box2.UseTexture("cubeTexture", TextureUnit.Texture2, 2);
         }
 
 

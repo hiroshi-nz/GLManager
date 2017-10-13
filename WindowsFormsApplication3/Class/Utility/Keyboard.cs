@@ -86,7 +86,6 @@ namespace GLManager
             {
                 objectManager.NextObject();
             }
-
         }
         
  

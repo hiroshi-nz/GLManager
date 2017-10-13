@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Bullet\Character.cs" />
     <Compile Include="Class\Bullet\FallingBody.cs" />
     <Compile Include="Class\CodeGenerator\ShaderGenerator.cs" />
     <Compile Include="Class\Evaluation\BulletTest.cs" />

@@ -82,7 +82,7 @@ namespace GLManager
                 if (counter16ms > 16) //refresh rate 60hz
                 {
                     glManager.Render(glUserInput.UpdateLookAt());
-                    //fallingBody.Tick(glManager.world.robot);
+                    fallingBody.Tick(glManager.exampleObjectManager.box, glManager.exampleObjectManager.box2);
 
                     counter16ms = 0;
                     FPSCounter++;
@@ -95,7 +95,7 @@ namespace GLManager
         {
             if (!loaded) return;
             glManager.Initialize(glControl1, glUserInput.lookAt);
-            //fallingBody.InitializeEverything();
+            fallingBody.InitializeEverything();
 
         }
    
@@ -131,6 +131,8 @@ namespace GLManager
             if (e.Button == MouseButtons.Right)
             {
                 mouse.mouseRightButton = true;
+                //fallingBody.ThrowObject(glManager.exampleObjectManager.box);
+                fallingBody.MoveObject(glManager.exampleObjectManager.box);
             }
         }
 
